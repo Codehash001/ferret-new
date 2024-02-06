@@ -10,7 +10,7 @@ export default function Home() {
       </div>
       <div className="flex flex-1 py-4">
         <div className="w-full">
-          <Chat />
+          {/* <Chat /> */}
         </div>
       </div>
     </main>
