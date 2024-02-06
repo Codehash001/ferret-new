@@ -7,7 +7,6 @@ export async function embedAndStoreDocs(
   client: PineconeClient,
   // @ts-ignore docs type error
   docs: Document<Record<string, any>>[],
-  namespace : string
 ) {
   /*create and store the embeddings in the vectorStore*/
   try {
@@ -17,7 +16,6 @@ export async function embedAndStoreDocs(
     //embed the PDF documents
     await PineconeStore.fromDocuments(docs, embeddings, {
       pineconeIndex: index,
-      namespace: namespace,
       textKey: "text",
     });
   } catch (error) {
@@ -48,7 +46,7 @@ export async function getVectorStore(client: PineconeClient , namespace : string
       });
 
     }
-    
+
     return vectorStore;
   } catch (error) {
     console.log("error ", error);
