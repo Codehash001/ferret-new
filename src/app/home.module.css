@@ -1,0 +1,44 @@
+/* styles/Home.module.css */
+.ip {
+    @apply w-64 h-32;
+  }
+  
+  
+  .ip__worm1,
+  .ip__worm2 {
+    @apply animation-worm1 2s linear infinite;
+  }
+  
+  .ip__worm2 {
+    @apply animation-worm2;
+  }
+  
+  @keyframes worm1 {
+    from {
+      stroke-dashoffset: 0;
+    }
+    50% {
+      animation-timing-function: steps(1);
+      stroke-dashoffset: -358;
+    }
+    50.01% {
+      animation-timing-function: linear;
+      stroke-dashoffset: 358;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  @keyframes worm2 {
+    from {
+      stroke-dashoffset: 358;
+    }
+    50% {
+      stroke-dashoffset: 0;
+    }
+    to {
+      stroke-dashoffset: -358;
+    }
+  }
+  
