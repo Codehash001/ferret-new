@@ -1,5 +1,5 @@
 import { ChatGPTMessage } from "@/types";
-import { Message } from "ai";
+import { Message } from "ai/react";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
