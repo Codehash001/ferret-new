@@ -32,6 +32,7 @@ export async function callChain({ question, chatHistory }: callChainArgs , names
         qaTemplate: QA_TEMPLATE,
         questionGeneratorTemplate: STANDALONE_QUESTION_TEMPLATE,
         returnSourceDocuments: true, //default 4
+        
         questionGeneratorChainOptions: {
           llm: nonStreamingModel,
         },
@@ -52,12 +53,12 @@ export async function callChain({ question, chatHistory }: callChainArgs , names
         const sourceDocuments = res?.sourceDocuments;
         const firstTwoDocuments = sourceDocuments.slice(0, 2);
         console.log('first two docs' , firstTwoDocuments)
-        const pdfnames = firstTwoDocuments.map(
-          ({ metadata }: { metadata: any }) => metadata.pdfName
+        const pageContent = firstTwoDocuments.map(
+          ({ pageContent }: { pageContent: any }) => pageContent
         );
         console.log("already appended ", data);
         data.append({
-          sources: pdfnames,
+          sources: pageContent,
         });
         data.close();
       });
