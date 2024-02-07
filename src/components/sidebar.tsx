@@ -76,6 +76,10 @@ export const Sidebar: NextPage<Props> = ({ chatbotname , onFileSelectionChange }
     });
   }
 
+  function modifyFileName(fileName : string) {
+    return fileName.replace(/_/g, ' ').replace('.pdf', '');
+  }
+
   return (
     <div className="w-full h-full overflow-hidden flex flex-col items-center justify-start p-4">
       <div className="w-full px-2 py-6 bg-[#dee4e7] dark:bg-[#070711] border flex items-center justify-center rounded-md font-semibold text-xl">knowledge base</div>
@@ -96,7 +100,7 @@ export const Sidebar: NextPage<Props> = ({ chatbotname , onFileSelectionChange }
       onChange={() => handleCheckboxChange(file.file.name)}
       className="custom-checkbox"
     />
-    <div className="my-2">{file.file.name}</div>
+    <div className="my-2">{modifyFileName(file.file.name)}</div>
   </label>
 </li>
                 ))}

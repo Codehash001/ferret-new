@@ -52,7 +52,7 @@ export const initialMessages: Message[] = [
 ];
 
 interface Data {
-  sources: string[];
+  sources: { pageContent: string; metadata: any}[];
 }
 
 // Maps the sources with the right ai-message

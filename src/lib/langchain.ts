@@ -51,14 +51,14 @@ export async function callChain({ question, chatHistory }: callChainArgs , names
       )
       .then(async (res) => {
         const sourceDocuments = res?.sourceDocuments;
-        const firstTwoDocuments = sourceDocuments.slice(0, 2);
+        const firstTwoDocuments = sourceDocuments.slice(0, 4);
         console.log('first two docs' , firstTwoDocuments)
         const pageContent = firstTwoDocuments.map(
           ({ pageContent }: { pageContent: any }) => pageContent
         );
         console.log("already appended ", data);
         data.append({
-          sources: pageContent,
+          sources: firstTwoDocuments,
         });
         data.close();
       });
