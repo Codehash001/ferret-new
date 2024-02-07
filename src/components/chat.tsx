@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
 import { DarkModeToggle } from "./dark-mode-toggle";
 import { Sidebar } from "./sidebar";
+import { MdMenu , MdClose} from "react-icons/md";
 
 interface Props {
   namespace : string
@@ -29,19 +30,44 @@ export const Chat: NextPage<Props> = ({ namespace }) => {
     setTimeout(() => scrollToBottom(containerRef), 100);
   }, [messages]);
 
+
+
+  const [nav , setNav] = useState(false);
+
+  function handlenav() {
+    setNav(!nav);
+  }
+
   return (
-    <div className="w-full h-full overflow-hidden flex flex-row items-center justify-center space-x-5">
+    <div className="w-full h-full overflow-hidden flex flex-row items-center justify-center space-x-5  relative">
       {/* sidebar */}
-      <div className="h-full border w-[25%] rounded-xl bg-background/70 supports-backdrop-blur:bg-background/60">
+      <div className="h-full border w-[25%] rounded-xl bg-background/70 supports-backdrop-blur:bg-background/60 hidden md:flex">
         <Sidebar chatbotname={namespace} onFileSelectionChange={setSelectedFiles}/>
       </div>
 
+      {/* mobile navbar */}
+      {nav? 
+    (<>
+    <div className="w-full h-full overflow-x-hidden bg-background absolute p-20">
+        <Sidebar chatbotname={namespace} onFileSelectionChange={setSelectedFiles}/>
+    </div>
+    </>)
+    :(
+      <></>
+    )  
+    }
+
       {/* chat */}
-          <div className="h-full rounded-xl flex flex-col justify-between w-[75%]">
+      <div className={"h-full rounded-xl flex flex-col justify-between md:w-[75%] w-full"}>
       <div className="px-6 overflow-auto custom-scrollbar" ref={containerRef}>
       <div className="flex h-16 items-center justify-between supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border p-4 bg-background/95 backdrop-blur mb-4 shadow-md rounded-sm">
         <span className="font-bold text-lg">{namespace}</span>
+        <div className="space-x-2 flex flex-row items-center justify-center">
         <DarkModeToggle />
+        <div className=" border rounded-md p-1 flex md:hidden" onClick={handlenav}>
+          {nav? <MdClose size={25}/> : <MdMenu size={25}/>}
+        </div>
+        </div>
       </div>
         {messages.map(({ id, role, content }: Message, index) => (
           <ChatLine

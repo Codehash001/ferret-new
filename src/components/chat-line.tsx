@@ -16,7 +16,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Message } from "ai/react";
-import ReactMarkdown from "react-markdown";
+import Markdown from "react-markdown";
 import { formattedText } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase-client";
@@ -29,7 +29,6 @@ const convertNewLines = (text: string) =>
     </span>
   ));
 
-// ... (import statements)
 
 interface ChatLineProps extends Partial<Message> {
   sources: { pageContent: string; metadata: any}[];
@@ -102,8 +101,8 @@ export function ChatLine({
             {role === "assistant" ? "AI" : "You"}
           </CardTitle>
         </CardHeader>
-        <CardContent className="text-sm">
-          <Balancer>{formattedMessage}</Balancer>
+        <CardContent className="text-sm">          
+        {formattedMessage}
         </CardContent>
         <CardFooter>
           <CardDescription className="w-full">
@@ -119,7 +118,11 @@ export function ChatLine({
                   <AccordionContent>
                     {group.map((source, sourceIndex) => (
                       <div key={sourceIndex}>
-                          <div className="mb-4 shadow-md border rounded-md p-2">{source.pageContent}</div>
+                          <div className="mb-4 shadow-md border rounded-md p-2">
+                            <Markdown>
+                            {source.pageContent}
+                            </Markdown>
+                            </div>
                       </div>
                     ))}
                       <a
