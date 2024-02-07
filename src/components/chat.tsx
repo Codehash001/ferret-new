@@ -39,7 +39,7 @@ export const Chat: NextPage<Props> = ({ namespace }) => {
   }
 
   return (
-    <div className="w-full h-full overflow-hidden flex flex-row items-center justify-center space-x-5  relative">
+    <div className="w-full h-full overflow-hidden flex flex-row items-center justify-center space-x-5 relative">
       {/* sidebar */}
       <div className="h-full border w-[25%] rounded-xl bg-background/70 supports-backdrop-blur:bg-background/60 hidden md:flex">
         <Sidebar chatbotname={namespace} onFileSelectionChange={setSelectedFiles}/>
@@ -48,7 +48,7 @@ export const Chat: NextPage<Props> = ({ namespace }) => {
       {/* mobile navbar */}
       {nav? 
     (<>
-    <div className="w-full h-full overflow-x-hidden bg-background absolute p-20">
+    <div className="w-full h-full overflow-x-hidden bg-background absolute pt-20 px-5">
         <Sidebar chatbotname={namespace} onFileSelectionChange={setSelectedFiles}/>
     </div>
     </>)

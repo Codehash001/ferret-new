@@ -70,7 +70,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ params }) => {
     <div>
       {chatbotExists ? (
         <>
-        <main className="flex h-screen flex-col px-20 py-10">
+        <main className="flex h-screen flex-col md:px-20 md:py-10 py-4">
         <div className="w-full h-full">
           <Chat namespace={params.chatbot} />
         </div>
