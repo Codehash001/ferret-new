@@ -1,4 +1,4 @@
-import { ConversationalRetrievalQAChain } from "langchain/chains";
+import { ConversationalRetrievalQAChain , ChatVectorDBQAChain } from "langchain/chains";
 import { getVectorStore } from "./vector-store";
 import { getPineconeClient } from "./pinecone-client";
 import {
@@ -27,7 +27,7 @@ export async function callChain({ question, chatHistory }: callChainArgs , names
 
     const chain = ConversationalRetrievalQAChain.fromLLM(
       streamingModel,
-      vectorStore.asRetriever(),
+      vectorStore.asRetriever(10),
       {
         qaTemplate: QA_TEMPLATE,
         questionGeneratorTemplate: STANDALONE_QUESTION_TEMPLATE,
@@ -51,7 +51,7 @@ export async function callChain({ question, chatHistory }: callChainArgs , names
       )
       .then(async (res) => {
         const sourceDocuments = res?.sourceDocuments;
-        const firstTwoDocuments = sourceDocuments.slice(0, 4);
+        const firstTwoDocuments = sourceDocuments.slice(0, 10);
         console.log('first two docs' , firstTwoDocuments)
         const pageContent = firstTwoDocuments.map(
           ({ pageContent }: { pageContent: any }) => pageContent

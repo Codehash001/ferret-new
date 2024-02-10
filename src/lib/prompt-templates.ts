@@ -7,10 +7,9 @@ Follow Up Input: {question}
 Standalone question:`;
 
 // Actual question you ask the chat and send the response to client
-export const QA_TEMPLATE = `Do whatever user ask to do with given context.
-Provide elated answer as longer as much you can.
-If the question is not related to the given context, politely say sorry I dont know the answer.
-Donot make up answers.
+export const QA_TEMPLATE = `Use the following pieces of context.
+Don't try to make up an answer.
+----------------
 {context}
 
 Question: {question}
