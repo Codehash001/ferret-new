@@ -7,10 +7,11 @@ Follow Up Input: {question}
 Standalone question:`;
 
 // Actual question you ask the chat and send the response to client
-export const QA_TEMPLATE = `Use the following pieces of context.
-Don't try to make up an answer.
-----------------
-{context}
-
-Question: {question}
-Helpful answer in markdown:`;
+export const QA_TEMPLATE = `You are an AI chatbot with context based knowledgebase.\n Do whatever you are asked to do with context.\n
+       provide a well-detailed structurd answer.\n
+       START CONTEXT BLOCK\n
+       {context}
+       END OF CONTEXT BLOCK\n
+       Question: {question}\n
+    Helpful answer in markdown:
+`;
