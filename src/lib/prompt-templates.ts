@@ -1,5 +1,5 @@
 // Creates a standalone question from the chat-history and the current question
-export const STANDALONE_QUESTION_TEMPLATE = `Given the following conversation and a follow up question, fix the grammar erros in the qustion.
+export const STANDALONE_QUESTION_TEMPLATE = `Given the following conversation and a follow up input question, mak it btter to understand for a AI model.
 
 Chat History:
 {chat_history}

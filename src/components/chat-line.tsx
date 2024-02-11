@@ -24,7 +24,10 @@ import { supabase } from "@/lib/supabase-client";
 const convertNewLines = (text: string) =>
   text.split("\n").map((line, i) => (
     <span key={i}>
-      {line}
+      {line.replace(/\n+/g, " ").replace(/(\w) - (\w)/g, "$1$2").replace(/\s+/g, " ")}
+      {/* .replace(/\n+/g, " ") // Replace multiple consecutive new lines with a single space
+    .replace(/(\w) - (\w)/g, "$1$2") // Join hyphenated words together
+    .replace(/\s+/g, " "); // Replace multiple consecutive spaces with a single space */}
       <br />
     </span>
   ));
