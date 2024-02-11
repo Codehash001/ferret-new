@@ -58,7 +58,7 @@ export async function callChain({ question, chatHistory }: callChainArgs , names
         );
         console.log("already appended ", data);
         data.append({
-          sources: firstTwoDocuments,
+          sources: sourceDocuments,
         });
         data.close();
       });

@@ -43,6 +43,7 @@ export async function getVectorStore(client: PineconeClient , namespace : string
         pineconeIndex: index,
         textKey: "text",
         namespace: namespace,
+        
       });
 
     }
