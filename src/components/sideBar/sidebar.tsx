@@ -101,9 +101,9 @@ export const Sidebar: NextPage<Props> = ({
         <div className="flex flex-row items-end justify-between space-x-2">
           <h1 className="text-sm">max speed</h1>
           {[1, 2, 3, 4, 5, 6, 7].map((value) => (
-            <div className="flex flex-row pb-6">
+            <div className="flex flex-row pb-6"
+            key={value}>
               <label
-                key={value}
                 className={`cursor-pointer h-5 w-5 flex flex-col items-center justify-center rounded-full ${
                   selectedValue === value
                     ? "bg-blue-500 text-white"

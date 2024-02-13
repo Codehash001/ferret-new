@@ -17,7 +17,7 @@ export const Parent: NextPage<Props> = ({ namespace }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const [selectedValue, setSelectedValue] = useState<number | null>(4);
-  const [currentMenuItem , setCurrentMenuItem] = useState('chat');
+  const [currentMenuItem , setCurrentMenuItem] = useState('Chat');
 
 
   const [nav, setNav] = useState(false);
