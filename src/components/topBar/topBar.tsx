@@ -63,7 +63,7 @@ export const TopBar: NextPage<Props> = ({ namespace , onMenuItemChange }) => {
               >
                 <Dropdown label="" placement="left-start" dismissOnClick={false} className="bg-slate-100 border-none dark:bg-slate-900" renderTrigger={() => <span className=" border rounded-md px-4 py-1 flex bg-background cursor-pointer">Menu</span>}>
             {menuItems.map((item , value) => (
-                <Dropdown.Item className="text-lg dark:text-white border-none" onClick={()=>handleCurrentMenuItem(item)}>{item}</Dropdown.Item>
+                <Dropdown.Item key={value} className="text-lg dark:text-white border-none" onClick={()=>handleCurrentMenuItem(item)}>{item}</Dropdown.Item>
             ))}
     </Dropdown>
               </div>
