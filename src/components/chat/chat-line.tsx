@@ -8,13 +8,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/chat/card";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/chat/accordion";
 import { Message } from "ai/react";
 import Markdown from "react-markdown";
 import { formattedText } from "@/lib/utils";
@@ -91,7 +91,7 @@ export function ChatLine({
   const formattedMessage = convertNewLines(content);
 
   return (
-    <div>
+    <div className="">
       <Card className="mb-2">
         <CardHeader>
           <CardTitle

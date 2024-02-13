@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { NextApiRequest } from "next";
 import { callChain } from "@/lib/langchain";
 import { Message } from "ai";
 
@@ -12,6 +13,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const namespace = body.namespaceName
   const selectedFiles = body.selectedFiles
+  const selectedValue = body.selectedValue
   const messages: Message[] = body.messages ?? [];
   console.log("Messages ", messages);
   const formattedPreviousMessages = messages.slice(0, -1).map(formatMessage);
@@ -29,7 +31,7 @@ export async function POST(req: NextRequest) {
     const streamingTextResponse = callChain({
       question,
       chatHistory: formattedPreviousMessages.join("\n"),
-    } ,namespace, selectedFiles);
+    } ,namespace, selectedFiles , selectedValue);
 
     return streamingTextResponse;
   } catch (error) {

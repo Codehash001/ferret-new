@@ -1,8 +1,9 @@
 'use client'
-import { DarkModeToggle } from '@/components/dark-mode-toggle';
+import { DarkModeToggle } from '@/components/topBar/dark-mode-toggle';
 import { supabase } from '../../../lib/supabase-client'; // Import your Supabase client
 import { FC, useEffect, useState } from 'react';
-import { Chat } from '@/components/chat';
+import { Chat } from '@/components/chat/chat';
+import { Parent } from '@/components/ui/parent';
 
 interface ChatbotPageProps {
   params: {chatbot: string}
@@ -70,11 +71,9 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ params }) => {
     <div>
       {chatbotExists ? (
         <>
-        <main className="flex h-screen flex-col md:px-20 md:py-10 py-4">
-        <div className="w-full h-full">
-          <Chat namespace={params.chatbot} />
-        </div>
-    </main>
+        <main className="flex h-screen flex-col p-10 overflow-hidden">
+            <Parent namespace={params.chatbot} />
+      </main>
         </>
       ) : (
         <div className="w-full h-screen flex flex-col lg:flex-row items-center justify-center space-y-16 lg:space-y-0 space-x-8 2xl:space-x-0">

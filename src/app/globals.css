@@ -5,6 +5,7 @@
 /* Customize the scrollbar */
 ::-webkit-scrollbar {
   width: 5px; /* Width of the scrollbar */
+  margin-left: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -28,14 +29,14 @@
   appearance: none;
   width: 1.5em;
   height: 1.5em;
-  border: 2px solid green;
-  border-radius: 0.25em;
+  border: 2px solid #53609a;
+  border-radius: 1em;
   outline: none;
   transition: background 0.3s;
 
   /* Custom styling for the checked state */
   &:checked {
-    background-color: green;
+    background-color: #53609a;
   }
 
   /* Pseudo-element for the checkmark */

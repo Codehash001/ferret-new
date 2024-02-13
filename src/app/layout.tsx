@@ -19,7 +19,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <>
       <html lang="en" suppressHydrationWarning>
         <head />
-        <body className="bg-[#dee4e7] dark:bg-[#070711]">
+        <body className="bg-[#f5f5f1] dark:bg-[#070711]">
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
           </ThemeProvider>

@@ -1,4 +1,4 @@
-import { ConversationalRetrievalQAChain , ChatVectorDBQAChain } from "langchain/chains";
+import { ConversationalRetrievalQAChain  } from "langchain/chains";
 import { getVectorStore } from "./vector-store";
 import { getPineconeClient } from "./pinecone-client";
 import {
@@ -14,8 +14,9 @@ type callChainArgs = {
   chatHistory: string;
 };
 
-export async function callChain({ question, chatHistory }: callChainArgs , namespace : string , selectedFiles : string[]) {
+export async function callChain({ question, chatHistory }: callChainArgs , namespace : string , selectedFiles : string[] , selectedValue:number) {
   try {
+    console.log('selectedValue' , selectedValue)
     // Open AI recommendation
     const sanitizedQuestion = question.trim().replaceAll("\n", " ");
     const pineconeClient = await getPineconeClient();
@@ -27,7 +28,7 @@ export async function callChain({ question, chatHistory }: callChainArgs , names
 
     const chain = ConversationalRetrievalQAChain.fromLLM(
       streamingModel,
-      vectorStore.asRetriever(10),
+      vectorStore.asRetriever(selectedValue*3), //change this for make the chnages in number of returning source docs
       {
         qaTemplate: QA_TEMPLATE,
         questionGeneratorTemplate: STANDALONE_QUESTION_TEMPLATE,
