@@ -16,21 +16,11 @@ import {
   AccordionTrigger,
 } from "@/components/chat/accordion";
 import { Message } from "ai/react";
-import Markdown from "react-markdown";
+import ReactMarkdown from 'react-markdown';
 import { formattedText } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase-client";
 
-const convertNewLines = (text: string) =>
-  text.split("\n").map((line, i) => (
-    <span key={i}>
-      {line.replace(/\n+/g, " ").replace(/(\w) - (\w)/g, "$1$2").replace(/\s+/g, " ")}
-      {/* .replace(/\n+/g, " ") // Replace multiple consecutive new lines with a single space
-    .replace(/(\w) - (\w)/g, "$1$2") // Join hyphenated words together
-    .replace(/\s+/g, " "); // Replace multiple consecutive spaces with a single space */}
-      <br />
-    </span>
-  ));
 
 
 interface ChatLineProps extends Partial<Message> {
@@ -88,7 +78,7 @@ export function ChatLine({
   if (!content) {
     return null;
   }
-  const formattedMessage = convertNewLines(content);
+
 
   return (
     <div className="">
@@ -104,8 +94,8 @@ export function ChatLine({
             {role === "assistant" ? "AI" : "You"}
           </CardTitle>
         </CardHeader>
-        <CardContent className="text-sm">          
-        {formattedMessage}
+        <CardContent className="text-sm">
+        <ReactMarkdown>{content}</ReactMarkdown>         
         </CardContent>
         <CardFooter>
           <CardDescription className="w-full">
@@ -122,9 +112,9 @@ export function ChatLine({
                     {group.map((source, sourceIndex) => (
                       <div key={sourceIndex}>
                           <div className="mb-4 shadow-md border rounded-md p-2">
-                            <Markdown>
+                            <ReactMarkdown>
                             {source.pageContent}
-                            </Markdown>
+                            </ReactMarkdown>
                             </div>
                       </div>
                     ))}
