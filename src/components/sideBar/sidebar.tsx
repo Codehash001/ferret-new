@@ -1,6 +1,8 @@
 import { supabase } from "@/lib/supabase-client";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
+import { LiaFileExportSolid } from "react-icons/lia";
+
 
 interface Props {
   chatbotname: string;
@@ -92,6 +94,36 @@ export const Sidebar: NextPage<Props> = ({
     return fileName.replace(/_/g, " ").replace(".pdf", "");
   }
 
+  const handleExportChat = async () => {
+    // Get the chat content element
+    const chatContent = document.getElementById("chatContent");
+    if (chatContent) {
+      try {
+        const chatText = chatContent.innerText;
+  
+        // Get the current date and time
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString().replace(/:/g, '-').split('.')[0];
+  
+        // Create a Blob containing the text
+        const blob = new Blob([chatText], { type: 'text/plain' });
+  
+        // Create a link element and trigger a click to download the text file
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `exported-document-${formattedDate}.txt`;
+        link.click();
+  
+        // Release the Blob URL
+        URL.revokeObjectURL(link.href);
+      } catch (error) {
+        console.error("Error exporting chat:", error);
+      }
+    }
+  };
+
+  
+
   return (
     <div className="flex flex-col w-full h-full">
       <div className="w-full p-3 bg-slate-200 dark:bg-[#070711] flex items-center justify-center rounded-tl-xl font-semibold text-xl">
@@ -125,15 +157,16 @@ export const Sidebar: NextPage<Props> = ({
         </div>
       </div>
 
-      <div className="w-full h-full overflow-hidden flex flex-col items-center justify-start px-6">
-        <div className="w-full px-2 py-6 bg-[#dee4e7] dark:bg-[#070711] border flex items-center justify-center rounded-md font-semibold text-xl">
+      <div className="w-full h-full overflow-hidden flex flex-col items-center justify-start px-6 pb-4">
+        <div className="w-full px-2 py-4 bg-[#f5f5f1] dark:bg-[#070711] border flex items-center justify-center rounded-md font-semibold text-xl">
           knowledge base
         </div>
-        <ul className="w-full h-full flex flex-col justify-start space-y-6 mt-6">
+        <ul className="w-full flex flex-col justify-start space-y-6 mt-6 overflow-y-auto relative h-full pr-2">
           {authors.map((author, index) => (
             <li key={index} className="w-full">
-              <div className="w-full p-2 border rounded-md font-medium bg-background/50">
-                {author.author_name}
+              <div className="w-full p-2 border rounded-md font-medium bg-background/50 flex flex-row items-center justify-start space-x-4">
+                <img src="/avatar.png" className="h-8 w-8 rounded-full"/>
+                <h1>{author.author_name}</h1>
               </div>
               <ul className="w-full pl-3 mt-2">
                 {files
@@ -158,6 +191,10 @@ export const Sidebar: NextPage<Props> = ({
             </li>
           ))}
         </ul>
+        <button className="w-full flex flex-row items-center justify-center space-x-2 px-6 py-3 rounded-md  border-2 hover:bg-slate-200" onClick={handleExportChat}>
+          <LiaFileExportSolid size={25}/>
+          <span className="font-medium">Export Chat</span>
+        </button>
       </div>
     </div>
   );

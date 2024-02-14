@@ -1,11 +1,5 @@
 "use client";
-
-import { scrollToBottom, initialMessages, getSources } from "@/lib/utils";
-import { useChat, Message } from "ai-stream-experimental/react";
-import { useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
-import { Sidebar } from "../sideBar/sidebar";
-import { TopBar } from "../topBar/topBar";
 import { Chat } from "../chat/chat";
 
 interface Props {

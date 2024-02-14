@@ -103,7 +103,8 @@ export function ChatLine({
               <Accordion type="single" collapsible className="w-full bg-slate-100 dark:bg-slate-900 rounded-xl mb-2" key={index}>
                 <AccordionItem value={`pdf-${index}`}>
                   <AccordionTrigger>
-                    <div className="flex">
+                    <div className="flex flex-row items-center">
+                    <img src="/avatar.png" className="h-8 w-8 rounded-full mr-4"/>
                   <div className="font-bold">{`${authors.find((a) => a.pdfName === pdfName)?.author || 'Unknown Author'}`} -</div>
                   <div className="font-semibold ml-2">{`${modifyFileName(pdfName)}`}</div>
                   </div>

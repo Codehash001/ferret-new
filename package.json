@@ -51,6 +51,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@types/jspdf": "^2.0.0",
     "@types/pdf-parse": "^1.1.1",
     "tsx": "^3.12.7"
   }

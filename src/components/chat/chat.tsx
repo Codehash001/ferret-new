@@ -32,7 +32,7 @@ export const Chat: NextPage<Props> = ({ namespace , selectedFiles , selectedValu
   return (
       <div className="h-full flex flex-col justify-between pb-20">
         <div className="pr-2 h-full overflow-y-auto">
-        <div className="" ref={containerRef}>
+        <div className="" ref={containerRef} id="chatContent">
         {messages.map(({ id, role, content }: Message, index) => (
           <ChatLine
             key={id}
