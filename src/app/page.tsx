@@ -1,13 +1,8 @@
 
 import { DarkModeToggle } from "@/components/topBar/dark-mode-toggle";
-import { Chat } from "@/components/chat/chat";
-import { env } from "@/lib/config";
 
 export default function Home() {
 
-
-    const url = env.SUPABASE_KEY
-    console.log(url)
 
   return (
     <main className="relative container flex min-h-screen flex-col">
