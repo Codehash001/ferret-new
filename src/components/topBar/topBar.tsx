@@ -55,7 +55,7 @@ export const TopBar: NextPage<Props> = ({ namespace , onMenuItemChange }) => {
   }
 
   return (
-          <div className="flex h-16 items-center justify-between supports-backdrop-blur:bg-background/60  z-50 w-full border p-4 bg-background/95 backdrop-blur mb-4 shadow-md rounded-sm">
+          <div className="flex h-16 items-center justify-between supports-backdrop-blur:bg-background/60  z-50 w-full border p-4 bg-background backdrop-blur mb-4 shadow-md rounded-sm">
             <span className="font-bold text-lg">{namespace}</span>
             <div className="space-x-2 flex flex-row items-center justify-center">
             <div

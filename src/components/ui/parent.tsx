@@ -29,7 +29,7 @@ export const Parent: NextPage<Props> = ({ namespace }) => {
   return (
     <div className="flex flex-row items-start space-x-10 w-full h-full">
       {/* sidebar */}
-      <div className="h-full border w-[28%] rounded-xl bg-background/70 supports-backdrop-blur:bg-background hidden md:flex">
+      <div className="h-full w-[28%]  hidden md:flex">
         <Sidebar
           chatbotname={namespace}
           onFileSelectionChange={setSelectedFiles}

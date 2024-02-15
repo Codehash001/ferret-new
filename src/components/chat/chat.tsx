@@ -52,10 +52,10 @@ export const Chat: NextPage<Props> = ({ namespace , selectedFiles , selectedValu
           value={input}
           placeholder={"Type to chat with AI..."}
           onChange={handleInputChange}
-          className="mr-2 h-14 bg-background/30"
+          className="mr-2 h-14 bg-background"
         />
 
-        <Button type="submit" className="w-24 h-full">
+        <Button type="submit" className="w-24 h-full bg-primary" variant={'default'}>
           {isLoading ? <Spinner /> : "Send"}
         </Button>
       </form>

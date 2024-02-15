@@ -88,7 +88,7 @@ export function ChatLine({
             className={
               role !== "assistant"
                 ? "text-amber-500 dark:text-amber-200"
-                : "text-blue-500 dark:text-blue-200"
+                : "text-primary"
             }
           >
             {role === "assistant" ? "AI" : "You"}
