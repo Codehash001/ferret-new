@@ -104,7 +104,7 @@ export function ChatLine({
                 <AccordionItem value={`pdf-${index}`}>
                   <AccordionTrigger>
                     <div className="flex flex-row items-center">
-                    <img src="/avatar.png" className="h-8 w-8 rounded-full mr-4"/>
+                    {/* <img src={author.avatar_file_name?`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/avatars/${author.avatar_file_name}` : '/default-avatar.png'} className="h-8 w-8 rounded-full border bg-yellow-400"/> */}
                   <div className="font-bold">{`${authors.find((a) => a.pdfName === pdfName)?.author || 'Unknown Author'}`} -</div>
                   <div className="font-semibold ml-2">{`${modifyFileName(pdfName)}`}</div>
                   </div>
@@ -120,7 +120,7 @@ export function ChatLine({
                       </div>
                     ))}
                       <a
-                          href={`https://embicapmjtddkceauzpz.supabase.co/storage/v1/object/public/files/${pdfName}`}
+                          href={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/files/${pdfName}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="px-4 py-2 rounded-md bg-green-500 font-medium text-white hover:bg-green-600"
