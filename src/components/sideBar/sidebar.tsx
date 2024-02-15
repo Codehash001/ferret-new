@@ -133,7 +133,7 @@ export const Sidebar: NextPage<Props> = ({
       </div>
       <div className="w-full flex flex-col items-center justify-center py-6 px-2">
         <div className="flex flex-row items-end justify-between space-x-2">
-          <h1 className="text-[12px]">max speed</h1>
+          <h1 className="text-[12px] text-end">max speed</h1>
           {[1, 2, 3, 4, 5, 6, 7].map((value) => (
             <div className="flex flex-row pb-6"
             key={value}>

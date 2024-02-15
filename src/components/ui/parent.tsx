@@ -27,7 +27,7 @@ export const Parent: NextPage<Props> = ({ namespace }) => {
   }
 
   return (
-    <div className="flex flex-row items-start space-x-10 w-full h-full">
+    <div className="flex flex-row items-start md:space-x-10 w-full h-full">
       {/* sidebar */}
       <div className="h-full w-[28%]  hidden md:flex">
         <Sidebar
@@ -52,7 +52,7 @@ export const Parent: NextPage<Props> = ({ namespace }) => {
         <></>
       )}
 
-      <div className="w-[72%] h-full">
+      <div className="md:w-[72%] w-full h-full">
         <div className="">
         <TopBar namespace={namespace} onMenuItemChange={setCurrentMenuItem}/>
         </div>
