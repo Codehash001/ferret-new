@@ -183,7 +183,7 @@ export const Sidebar: NextPage<Props> = ({
                           onChange={() => handleCheckboxChange(file.file.name)}
                           className="custom-checkbox"
                         />
-                        <div className="my-2">
+                        <div className="my-2 text-sm">
                           {modifyFileName(file.file.name)}
                         </div>
                       </label>
