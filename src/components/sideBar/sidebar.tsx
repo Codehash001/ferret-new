@@ -131,9 +131,9 @@ export const Sidebar: NextPage<Props> = ({
       <div className="w-full p-4 bg-slate-200 dark:bg-[#070711] flex items-center justify-center rounded-tl-xl font-semibold text-xl">
         <img src="/Ferret.png" className="w-48"/>
       </div>
-      <div className="w-full flex flex-col items-center justify-center py-6 px-2">
+      <div className="w-full flex flex-col items-center justify-center py-4 px-2">
         <div className="flex flex-row items-end justify-between space-x-2">
-          <h1 className="text-[12px] text-end">max speed</h1>
+          <h1 className="text-[12px] text-end uppercase">max speed</h1>
           {[1, 2, 3, 4, 5, 6, 7].map((value) => (
             <div className="flex flex-row pb-6"
             key={value}>
@@ -155,7 +155,7 @@ export const Sidebar: NextPage<Props> = ({
               </label>
             </div>
           ))}
-          <h1 className="text-[12px]">max depth</h1>
+          <h1 className="text-[12px] uppercase">max depth</h1>
         </div>
       </div>
 
@@ -193,9 +193,9 @@ export const Sidebar: NextPage<Props> = ({
             </li>
           ))}
         </ul>
-        <button className="w-full flex flex-row items-center justify-center space-x-2 px-6 py-3 rounded-md  border-2 hover:bg-slate-200" onClick={handleExportChat}>
-          <LiaFileExportSolid size={25}/>
-          <span className="font-medium">Export Chat</span>
+        <button className="w-full flex flex-row items-center justify-center space-x-2 px-6 py-2 rounded-md  border-2 hover:bg-slate-200" onClick={handleExportChat}>
+          <LiaFileExportSolid size={22}/>
+          <span className="font-medium text-sm">Export Chat</span>
         </button>
       </div>
     </div>

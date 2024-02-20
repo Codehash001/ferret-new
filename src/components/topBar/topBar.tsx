@@ -17,6 +17,7 @@ import { Dropdown } from 'flowbite-react';
 interface Props {
   namespace: string;
   onMenuItemChange: (currentMenuItem: string) => void;
+  
 }
 
 export const TopBar: NextPage<Props> = ({ namespace , onMenuItemChange }) => {

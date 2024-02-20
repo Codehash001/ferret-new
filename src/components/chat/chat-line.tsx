@@ -20,6 +20,8 @@ import ReactMarkdown from 'react-markdown';
 import { formattedText } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase-client";
+import { PostgrestSingleResponse } from "@supabase/supabase-js";
+
 
 
 
@@ -33,7 +35,9 @@ export function ChatLine({
   sources,
 }: ChatLineProps) {
 
-  const [authors, setAuthors] = useState<{ pdfName: string; author: string }[]>([]);
+  const [authors, setAuthors] = useState<{ pdfName: string; author: string; avatar?: string|null}[]>([]);
+  const [avatar, setAvatar] = useState('');
+
 
   useEffect(() => {
     const fetchAuthors = async () => {
@@ -44,25 +48,33 @@ export function ChatLine({
             .select("name, author_name")
             .eq("name", source.metadata.pdfName)
             .single();
-
+  
           if (error) {
             console.error("Error fetching author info:", error);
-            return { pdfName: source.metadata.pdfName, author: "Unknown Author" };
+            return { pdfName: source.metadata.pdfName, author: "Unknown Author"};
           }
+  
+          // Fetch avatar information from the 'avatars' table
+          const {data:avatarData  , error:avatarerror} = await supabase
+            .from("authors")
+            .select("avatar_file_name")
+            .eq("author_name", data?.author_name)
+            .single();
 
+  
           return {
             pdfName: source.metadata.pdfName,
             author: data?.author_name || "Unknown Author",
+            avatar: avatarData?.avatar_file_name || null
           };
         })
       );
-
+  
       setAuthors(authorInfo);
     };
-
+  
     fetchAuthors();
   }, [sources]);
-
   const groupedSources: { [key: string]: typeof sources } = {};
   sources.forEach((source) => {
     if (!groupedSources[source.metadata.pdfName]) {
@@ -94,7 +106,7 @@ export function ChatLine({
             {role === "assistant" ? "AI" : "You"}
           </CardTitle>
         </CardHeader>
-        <CardContent className="text-sm">
+        <CardContent className="">
         <ReactMarkdown>{content}</ReactMarkdown>         
         </CardContent>
         <CardFooter>
@@ -104,7 +116,11 @@ export function ChatLine({
                 <AccordionItem value={`pdf-${index}`}>
                   <AccordionTrigger>
                     <div className="flex flex-row items-center">
-                    {/* <img src={author.avatar_file_name?`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/avatars/${author.avatar_file_name}` : '/default-avatar.png'} className="h-8 w-8 rounded-full border bg-yellow-400"/> */}
+                    <img
+      src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/avatars/${authors.find((a) => a.pdfName === pdfName)?.avatar}`}
+      className="h-6 w-6 rounded-full border bg-yellow-400 mr-2"
+      alt="Author Avatar"
+    />
                   <div className="font-bold">{`${authors.find((a) => a.pdfName === pdfName)?.author || 'Unknown Author'}`} -</div>
                   <div className="font-semibold ml-2">{`${modifyFileName(pdfName)}`}</div>
                   </div>
@@ -123,7 +139,7 @@ export function ChatLine({
                           href={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/files/${pdfName}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-4 py-2 rounded-md bg-green-500 font-medium text-white hover:bg-green-600"
+                          className="px-4 py-2 rounded-md bg-primary font-medium text-white hover:font-bold"
                         >Link to source
                       </a>
                   </AccordionContent>

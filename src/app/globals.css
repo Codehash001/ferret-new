@@ -27,9 +27,9 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  width: 1.5em;
-  height: 1.5em;
-  border: 2px solid #53609a;
+  width: 1.52em;
+  height: 1.52em;
+  border: 1px solid #53609a;
   border-radius: 1em;
   outline: none;
   transition: background 0.3s;
@@ -45,6 +45,7 @@
     display: block;
     text-align: center;
     color: white; /* Color of the checkmark */
+    
   }
 }
 
