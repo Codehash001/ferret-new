@@ -17,10 +17,11 @@ import { Dropdown } from 'flowbite-react';
 interface Props {
   namespace: string;
   onMenuItemChange: (currentMenuItem: string) => void;
+  onNavChange:(nav:boolean) => void;
   
 }
 
-export const TopBar: NextPage<Props> = ({ namespace , onMenuItemChange }) => {
+export const TopBar: NextPage<Props> = ({ namespace , onMenuItemChange , onNavChange }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
 
@@ -38,6 +39,7 @@ export const TopBar: NextPage<Props> = ({ namespace , onMenuItemChange }) => {
 
   function handlenav() {
     setNav(!nav);
+    onNavChange(!nav);
   }
 
   const menuItems = 

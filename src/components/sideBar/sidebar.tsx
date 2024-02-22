@@ -131,7 +131,7 @@ export const Sidebar: NextPage<Props> = ({
       <div className="w-full p-4 bg-slate-200 dark:bg-[#070711] flex items-center justify-center rounded-tl-xl font-semibold text-xl">
         <img src="/Ferret.png" className="w-48"/>
       </div>
-      <div className="w-full flex flex-col items-center justify-center py-4 px-2">
+      <div className="w-full flex flex-col items-center justify-center py-2 px-2">
         <div className="flex flex-row items-end justify-between space-x-2">
           <h1 className="text-[12px] text-end uppercase">max speed</h1>
           {[1, 2, 3, 4, 5, 6, 7].map((value) => (
@@ -167,7 +167,7 @@ export const Sidebar: NextPage<Props> = ({
           {authors.map((author, index) => (
             <li key={index} className="w-full">
               <div className="w-full p-2 border rounded-md font-medium bg-background flex flex-row items-center justify-start space-x-4">
-                <img src={author.avatar_file_name?`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/avatars/${author.avatar_file_name}` : '/default-avatar.png'} className="h-8 w-8 rounded-full border bg-yellow-400"/>
+                <img src={author.avatar_file_name?`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/avatars/${author.avatar_file_name}` : '/default-avatar.png'} className="h-8 w-8 rounded-full border bg-white"/>
                 <h1>{author.author_name}</h1>
               </div>
               <ul className="w-full pl-3 mt-2">

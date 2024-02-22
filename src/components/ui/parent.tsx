@@ -27,7 +27,7 @@ export const Parent: NextPage<Props> = ({ namespace }) => {
   }
 
   return (
-    <div className="flex flex-row items-start md:space-x-10 w-full h-full">
+    <div className="flex flex-row items-start md:space-x-10 w-full h-full relative">
       {/* sidebar */}
       <div className="h-full w-[28%]  hidden md:flex">
         <Sidebar
@@ -40,7 +40,7 @@ export const Parent: NextPage<Props> = ({ namespace }) => {
       {/* mobile navbar */}
       {nav ? (
         <>
-          <div className="w-full h-full overflow-x-hidden bg-background absolute pt-20 px-5">
+          <div className="w-full h-full overflow-x-hidden bg-background absolute pt-20 md:hidden">
             <Sidebar
               chatbotname={namespace}
               onFileSelectionChange={setSelectedFiles}
@@ -54,7 +54,7 @@ export const Parent: NextPage<Props> = ({ namespace }) => {
 
       <div className="md:w-[72%] w-full h-full">
         <div className="">
-        <TopBar namespace={namespace} onMenuItemChange={setCurrentMenuItem}/>
+        <TopBar namespace={namespace} onMenuItemChange={setCurrentMenuItem} onNavChange={handlenav}/>
         </div>
           <div className="h-full">
         <MainTab namespace={namespace} selectedFiles={selectedFiles} selectedValue={selectedValue} currentMenuItem={currentMenuItem}/>
