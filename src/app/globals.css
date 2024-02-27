@@ -33,6 +33,7 @@
   border-radius: 1em;
   outline: none;
   transition: background 0.3s;
+  display: block;
 
   /* Custom styling for the checked state */
   &:checked {

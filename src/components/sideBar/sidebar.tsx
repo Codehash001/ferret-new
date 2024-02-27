@@ -132,10 +132,10 @@ export const Sidebar: NextPage<Props> = ({
         <img src="/Ferret.png" className="w-48"/>
       </div>
       <div className="w-full flex flex-col items-center justify-center py-2 px-2">
-        <div className="flex flex-row items-end justify-between space-x-2">
+        <div className="flex flex-row items-center justify-between space-x-2">
           <h1 className="text-[12px] text-end uppercase">max speed</h1>
           {[1, 2, 3, 4, 5, 6, 7].map((value) => (
-            <div className="flex flex-row pb-6"
+            <div className="flex flex-row"
             key={value}>
               <label
                 className={`cursor-pointer h-5 w-5 flex flex-col items-center justify-center rounded-full ${
@@ -160,7 +160,7 @@ export const Sidebar: NextPage<Props> = ({
       </div>
 
       <div className="w-full h-full overflow-hidden flex flex-col items-center justify-start px-6 pb-4">
-        <div className="w-full px-2 py-4 bg-pageBackground border flex items-center justify-center rounded-md font-semibold text-xl">
+        <div className="w-full p-2 bg-pageBackground border flex items-center justify-center rounded-md font-semibold text-lg">
           Knowledge Base
         </div>
         <ul className="w-full flex flex-col justify-start space-y-6 mt-6 overflow-y-auto relative h-full pr-2">
@@ -174,15 +174,17 @@ export const Sidebar: NextPage<Props> = ({
                 {files
                   .filter((file) => file.authorName === author.author_name)
                   .map((file, fileIndex) => (
-                    <li key={fileIndex} className="flex flex-row space-x-3">
-                      <label className="flex flex-row space-x-2 max-h-12 items-center">
-                        <input
+                    <li key={fileIndex} className="flex flex-rowS">
+                      <label className="flex flex-row space-x-2 items-center">
+                        <div className="">
+                          <input
                           type="checkbox"
                           value={file.file.name}
                           checked={selectedFiles.includes(file.file.name)}
                           onChange={() => handleCheckboxChange(file.file.name)}
                           className="custom-checkbox"
                         />
+                        </div>
                         <div className="my-2 text-sm">
                           {modifyFileName(file.file.name)}
                         </div>
