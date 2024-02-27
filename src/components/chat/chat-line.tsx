@@ -139,7 +139,7 @@ export function ChatLine({
                           href={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/files/${pdfName}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-4 py-2 rounded-md bg-primary font-medium text-white hover:opacity-90"
+                          className="px-4 py-2 rounded-md bg-primary font-medium text-white dark:text-black hover:opacity-90"
                         >Source Material
                       </a>
                   </AccordionContent>
