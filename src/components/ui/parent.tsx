@@ -9,7 +9,7 @@ import { TopBar } from "../topBar/topBar";
 import { Chat } from "../chat/chat";
 import { MainTab } from "../mainTab/mainTab";
 import { supabase } from "@/lib/supabase-client";
-import { Spinner, TextInput  } from "flowbite-react";
+import { Spinner, TextInput } from "flowbite-react";
 
 interface Props {
   namespace: string;
@@ -27,53 +27,62 @@ export const Parent: NextPage<Props> = ({ namespace }) => {
   const [userPassword, setUserPassword] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-
-
   const handlenav = () => {
     setNav(!nav);
   };
 
-  const checkPassword = async () => {
-    setIsLoading(true);
+  const setPasswordInLocalStorage = (password: string) => {
+    localStorage.setItem(`${namespace}_password`, password);
+  };
+  
+  const getPasswordFromLocalStorage = (): string | null => {
+    return localStorage.getItem(`${namespace}_password`);
+  };
+
+  const checkPasswordAndLoadContent = async () => {
     try {
-      const { data, error } = await supabase
-        .from("chatbots")
-        .select("password")
-        .eq("name", namespace);
+      const storedPassword = getPasswordFromLocalStorage();
+      console.log(storedPassword);
 
-      if (error) {
-        throw error;
-      }
+      if (storedPassword && storedPassword === userPassword) {
+        setIsPasswordCorrect(true);
+      } else {
+        const { data, error } = await supabase
+          .from("chatbots")
+          .select("password")
+          .eq("name", namespace);
 
-      if (data && data.length > 0 && data[0].password) {
-        setIsPassword(true);
-        setCorrectPassword(data[0].password);
-        console.log(data[0].password);
+        if (error) {
+          throw error;
+        }
+
+        if (data && data.length > 0 && data[0].password === userPassword) {
+          setIsPasswordCorrect(true);
+          setPasswordInLocalStorage(userPassword);
+        }
       }
     } catch (error) {
       console.error("Error checking password:", error);
-    }
-    finally {
+    } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    checkPassword();
-  }, []);
+    checkPasswordAndLoadContent();
+  }, [userPassword]);
 
   if (isLoading) {
-    return(
+    return (
       <div className="flex flex-col items-center justify-center min-h-screen">
-            <div className="flex space-x-2">
-              <Spinner/>
-            </div>
+        <div className="flex space-x-2">
+          <Spinner />
         </div>
-
-    )
+      </div>
+    );
   }
 
-  if (ispassword && userPassword !== correctPassword) {
+  if (ispassword && !isPasswordCorrect) {
     return (
       <div className="w-full h-full flex flex-col items-center justify-center">
         <div className="p-6 space-y-4 rounded-md shadow-md">
