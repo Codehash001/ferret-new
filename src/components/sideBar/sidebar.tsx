@@ -1,5 +1,6 @@
 import { env } from "@/lib/config";
 import { supabase } from "@/lib/supabase-client";
+import { Spinner } from "flowbite-react";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { LiaFileExportSolid } from "react-icons/lia";
@@ -9,12 +10,16 @@ interface Props {
   chatbotname: string;
   onFileSelectionChange: (selectedFiles: string[]) => void;
   onSelectedValueChange: (selectedValue: number | null) => void;
+  primaryColor: string;
+  logoName: string;
 }
 
 export const Sidebar: NextPage<Props> = ({
   chatbotname,
   onFileSelectionChange,
   onSelectedValueChange,
+  primaryColor,
+  logoName,
 }) => {
   const [authors, setAuthors] = useState<any[]>([]);
   const [selectedChatbot, setSelectedChatbot] = useState("");
@@ -80,7 +85,7 @@ export const Sidebar: NextPage<Props> = ({
         ? prevSelectedFiles.filter((selectedFile) => selectedFile !== fileName)
         : [...prevSelectedFiles, fileName];
 
-      console.log(updatedSelectedFiles); // Log immediately when a checkbox is clicked
+      console.log(updatedSelectedFiles);
       onFileSelectionChange(updatedSelectedFiles);
       return updatedSelectedFiles;
     });
@@ -129,7 +134,10 @@ export const Sidebar: NextPage<Props> = ({
   return (
     <div className="flex flex-col w-full h-full bg-background border-l rounded-xl shadow-lg">
       <div className="w-full p-4 bg-slate-200 dark:bg-[#070711] flex items-center justify-center rounded-tl-xl font-semibold text-xl">
-        <img src="/Ferret.png" className="w-48"/>
+      {logoName?
+        <img src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/logos/${logoName}`} className="w-48"/>
+        :<Spinner/>
+      }
       </div>
       <div className="w-full flex flex-col items-center justify-center py-2 px-2">
         <div className="flex flex-row items-center justify-between space-x-2">

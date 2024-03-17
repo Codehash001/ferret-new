@@ -1,5 +1,5 @@
 // Creates a standalone question from the chat-history and the current question
-export const STANDALONE_QUESTION_TEMPLATE = `Given the following conversation and a follow up input question, make it btter to understand for a AI model.
+export const STANDALONE_QUESTION_TEMPLATE = `Given the following conversation and a follow up input question, make it better to understand for a AI model.
 
 Chat History:
 {chat_history}

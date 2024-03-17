@@ -26,6 +26,8 @@ export const Parent: NextPage<Props> = ({ namespace }) => {
   const [correctPassword, setCorrectPassword] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [primaryColor, setPrimaryColor] = useState<string>("#FFFFFF"); // Default color
+  const [logoName, setLogoName] = useState<string>("ferret.png"); // Default logo
 
   const handlenav = () => {
     setNav(!nav);
@@ -49,12 +51,15 @@ export const Parent: NextPage<Props> = ({ namespace }) => {
       } else {
         const { data, error } = await supabase
           .from("chatbots")
-          .select("password")
+          .select("password, primary_color, logo_name")
           .eq("name", namespace);
 
         if (error) {
           throw error;
         }
+
+        setPrimaryColor(data[0].primary_color);
+        setLogoName(data[0].logo_name);
 
         if (data && data.length > 0 && data[0].password === userPassword) {
           setIsPasswordCorrect(true);
@@ -108,6 +113,8 @@ export const Parent: NextPage<Props> = ({ namespace }) => {
             chatbotname={namespace}
             onFileSelectionChange={setSelectedFiles}
             onSelectedValueChange={setSelectedValue}
+            primaryColor={primaryColor}
+            logoName={logoName}
           />
         </div>
 
@@ -118,6 +125,8 @@ export const Parent: NextPage<Props> = ({ namespace }) => {
                 chatbotname={namespace}
                 onFileSelectionChange={setSelectedFiles}
                 onSelectedValueChange={setSelectedValue}
+                primaryColor={primaryColor}
+                logoName={logoName}
               />
             </div>
           </>

@@ -12,6 +12,7 @@ import { DarkModeToggle } from "./dark-mode-toggle";
 import { Sidebar } from "../sideBar/sidebar";
 import { MdMenu, MdClose } from "react-icons/md";
 import { Dropdown } from 'flowbite-react';
+import { supabase } from "@/lib/supabase-client";
 
 
 interface Props {
@@ -24,6 +25,7 @@ interface Props {
 export const TopBar: NextPage<Props> = ({ namespace , onMenuItemChange , onNavChange }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+  const [chatbotData , setChatbotData] = useState<any[]>([])
 
   const { messages, input, handleInputChange, handleSubmit, isLoading, data } =
     useChat({
@@ -34,6 +36,38 @@ export const TopBar: NextPage<Props> = ({ namespace , onMenuItemChange , onNavCh
   useEffect(() => {
     setTimeout(() => scrollToBottom(containerRef), 100);
   }, [messages]);
+
+  useEffect(() => {
+    const fetchbots = async () => {
+      try {
+        const { data: chatbotData, error: chatbotError } = await supabase
+          .from("chatbots")
+          .select("*")
+          .eq("name", namespace);
+
+        if (chatbotError) {
+          throw chatbotError;
+        }
+
+        setChatbotData(chatbotData);
+
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    const insertChannel = supabase.channel("chatbots");
+
+    insertChannel
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "chatbots" },
+        fetchbots
+      )
+      .subscribe();
+
+    fetchbots();
+  }, [namespace]);
 
   const [nav, setNav] = useState(false);
 
@@ -59,7 +93,14 @@ export const TopBar: NextPage<Props> = ({ namespace , onMenuItemChange , onNavCh
 
   return (
           <div className="flex h-16 items-center justify-between supports-backdrop-blur:bg-background/60  z-50 w-full border p-4 bg-background backdrop-blur mb-4 shadow-md rounded-sm">
-            <span className="font-bold text-lg">{namespace}</span>
+            <span className="font-bold text-lg flex">{namespace}:
+            {chatbotData.map((bot) => (
+  <div key={bot.id}>
+    <p>{bot.header}</p>
+    {/* Render other properties as needed */}
+  </div>
+))}
+            </span>
             <div className="space-x-2 flex flex-row items-center justify-center">
             <div
                 className=""
