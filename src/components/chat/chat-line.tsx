@@ -27,12 +27,14 @@ import { PostgrestSingleResponse } from "@supabase/supabase-js";
 
 interface ChatLineProps extends Partial<Message> {
   sources: { pageContent: string; metadata: any}[];
+  primaryColor:string;
 }
 
 export function ChatLine({
   role = "assistant",
   content,
   sources,
+  primaryColor,
 }: ChatLineProps) {
 
   const [authors, setAuthors] = useState<{ pdfName: string; author: string; avatar?: string|null}[]>([]);
@@ -40,6 +42,7 @@ export function ChatLine({
 
 
   useEffect(() => {
+    console.log('primary color is' , primaryColor)
     const fetchAuthors = async () => {
       const authorInfo = await Promise.all(
         sources.map(async (source) => {
@@ -97,11 +100,9 @@ export function ChatLine({
       <Card className="mb-2">
         <CardHeader>
           <CardTitle
-            className={
-              role !== "assistant"
-                ? "text-amber-500 dark:text-amber-200"
-                : "text-primary"
-            }
+            className=
+            {role !== "assistant"? "text-amber-500 dark:text-amber-200": ``}
+            style={{ color: role == "assistant"? primaryColor : ''}}
           >
             {role === "assistant" ? "AI" : "You"}
           </CardTitle>
@@ -139,7 +140,8 @@ export function ChatLine({
                           href={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/files/${pdfName}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-4 py-2 rounded-md bg-primary font-medium text-white dark:text-black hover:opacity-90"
+                          className={`px-4 py-2 rounded-md font-medium text-white dark:text-black hover:opacity-90`}
+                          style={{backgroundColor:primaryColor}}
                         >Source Material
                       </a>
                   </AccordionContent>

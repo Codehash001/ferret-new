@@ -8,6 +8,7 @@ import { Button } from "./button";
 import { Spinner } from "./spinner";
 import { useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
+import { supabase } from "@/lib/supabase-client";
 
 interface Props {
   namespace : string;
@@ -17,6 +18,7 @@ interface Props {
 
 export const Chat: NextPage<Props> = ({ namespace , selectedFiles , selectedValue}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [primaryColor, setPrimaryColor] = useState<string>("");
 
   const { messages, input, handleInputChange, handleSubmit, isLoading, data } =
     useChat({
@@ -28,6 +30,29 @@ export const Chat: NextPage<Props> = ({ namespace , selectedFiles , selectedValu
     setTimeout(() => scrollToBottom(containerRef), 100);
   }, [messages]);
 
+  const fetchPrimaryColor = async () => {
+    try {
+
+        const { data, error } = await supabase
+          .from("chatbots")
+          .select("primary_color")
+          .eq("name", namespace);
+
+        if (error) {
+          throw error;
+        }
+
+        setPrimaryColor(data[0].primary_color);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPrimaryColor();
+    console.log('primarycolor is' , primaryColor)
+  }, [namespace]);
+
 
   return (
       <div className="h-full flex flex-col justify-between pb-20">
@@ -38,6 +63,7 @@ export const Chat: NextPage<Props> = ({ namespace , selectedFiles , selectedValu
             key={id}
             role={role}
             content={content}
+            primaryColor={primaryColor}
             // Start from the third message of the assistant
             sources={data?.length ? getSources(data, role, index) : []}
           />
@@ -55,7 +81,7 @@ export const Chat: NextPage<Props> = ({ namespace , selectedFiles , selectedValu
           className="mr-2 h-14 bg-background"
         />
 
-        <Button type="submit" className="w-24 h-full bg-primary" variant={'default'}>
+        <Button type="submit" className={`w-24 h-full `} style={{backgroundColor:primaryColor}} variant={'default'}>
           {isLoading ? <Spinner /> : "Send"}
         </Button>
       </form>
